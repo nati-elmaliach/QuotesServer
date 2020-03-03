@@ -28,7 +28,9 @@ public class QuotesDao {
             URL url = getClass().getResource("quotes.json");
             Type REVIEW_TYPE = new TypeToken<List<Quote>>() {}.getType();
             JsonReader reader = new JsonReader(new FileReader(url.getPath()));
+            System.out.println(url.getPath());
             data = gson.fromJson(reader , REVIEW_TYPE);
+            System.out.println(data);
         }catch(IOException e){
             System.out.println("exception in QuotesDao");
             e.getMessage();
@@ -46,7 +48,7 @@ public class QuotesDao {
                 this.responseData = data.stream().filter(quote -> quote.getId() == intParameterValue).collect(Collectors.toList());
                 break;
             case "rating":
-                this.responseData = data.stream().filter(quote -> quote.getRating() >= intParameterValue).collect(Collectors.toList());
+                this.responseData = data.stream().filter(quote -> quote.getRating() == intParameterValue).collect(Collectors.toList());
                 break;
             default:
                 break;
